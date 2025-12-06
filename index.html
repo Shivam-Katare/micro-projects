@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathHelper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
+    <title>Logo Morph Animation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #2c2b2b;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Arial, sans-serif;
+        overflow: hidden;
+      }
+
+      @keyframes glow-move {
+        0% {
+          box-shadow: 0 0 40px rgba(255, 215, 0, 0.6),
+            0 0 80px rgba(255, 69, 0, 0.4), 0 20px 60px rgba(255, 0, 0, 0.3);
+        }
+        25% {
+          box-shadow: -20px -20px 50px rgba(255, 69, 0, 0.5),
+            20px 20px 70px rgba(255, 215, 0, 0.4),
+            0 25px 65px rgba(255, 140, 0, 0.35);
+        }
+        50% {
+          box-shadow: 0 -30px 60px rgba(255, 0, 0, 0.5),
+            0 30px 60px rgba(255, 215, 0, 0.5),
+            0 20px 60px rgba(255, 69, 0, 0.3);
+        }
+        75% {
+          box-shadow: 20px -20px 70px rgba(255, 215, 0, 0.4),
+            -20px 20px 50px rgba(255, 69, 0, 0.5),
+            0 25px 65px rgba(255, 0, 0, 0.35);
+        }
+        100% {
+          box-shadow: 0 0 40px rgba(255, 215, 0, 0.6),
+            0 0 80px rgba(255, 69, 0, 0.4), 0 20px 60px rgba(255, 0, 0, 0.3);
+        }
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        aspect-ratio: 16/9;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+        animation: glow-move 4s ease-in-out infinite;
+        cursor: pointer;
+      }
+
+      .logo-stage {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+      }
+
+      svg {
+        width: 280px;
+        height: 280px;
+        filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+      }
+
+      #wbLogo {
+        display: block;
+      }
+
+      #netflixLogo {
+        display: none;
+        position: absolute;
+      }
+
+      .info-text {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        text-align: center;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+
+      .video-container.playing .info-text {
+        opacity: 0;
+      }
+
+      .header {
+        position: absolute;
+        top: 40px;
+        text-align: center;
+        width: 100%;
+        z-index: 10;
+      }
+
+      .header h1 {
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 40px;
+        text-align: center;
+        width: 100%;
+        z-index: 10;
+      }
+
+      .footer p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1rem;
+        font-weight: 400;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Made with GSAP</h1>
+    </div>
+
+    <div class="video-container" id="videoContainer">
+      <div class="logo-stage">
+        <svg id="wbLogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            id="morphPath"
+            fill="#FFD700"
+            d="M16.58 10.238c-.524 0-1 .2-2.465 1.252v5.66c2.54-2.855 3.264-4.808 3.264-5.81c-.003-.702-.326-1.102-.8-1.102zm.2-3.756c0-1.005-1.146-1.83-2.665-1.929v5.234c1.916-1.127 2.664-2.257 2.664-3.306zm4.51-2.222c-.025-.1-.05-.137-.1-.15l-1.797-.476l-.249-1.027c-.012-.05-.025-.088-.074-.1l-1.844-.5l-.224-.978a.137.137 0 0 0-.1-.125L12.115.01a.641.641 0 0 0-.237 0L7.09.904a.137.137 0 0 0-.1.125l-.224.978l-1.843.5c-.05.012-.062.05-.075.1l-.249 1.026l-1.791.477c-.05.013-.075.05-.1.15a12.935 12.935 0 0 0-.224 2.43c0 7.215 3.737 13.477 9.317 17.21a.25.25 0 0 0 .2.1a.25.25 0 0 0 .2-.1c5.58-3.733 9.317-9.995 9.317-17.21a12.99 12.99 0 0 0-.228-2.43zm-9.993 16.321c0 .05-.05.075-.099.025c-1.37-1.577-2.292-3.506-2.914-5.61l-.947.603c-.25.176-.448.1-.6-.175C5.467 13.17 4.646 9.463 4.57 6.86a.452.452 0 0 1 .125-.325a11.835 11.835 0 0 1 1.096-1.152c.075-.075.15-.026.15.1c0 3.205.547 6.185 1.42 8.14c.074.15.149.15.249.074l.273-.175c-.523-2.33-.822-5.435-.747-9.016c0-.125.025-.176.1-.225a8.727 8.727 0 0 1 1.195-.627c.124-.05.15-.024.15.075c-.07 5.21.354 8.814 1.274 11.694c.025.075.1.05.1-.025c-.05-1.052-.05-1.978-.05-3.106l-.05-8.99c0-.1.025-.15.125-.175a9.902 9.902 0 0 1 1.245-.226a.066.066 0 0 1 .055.019a.067.067 0 0 1 .02.056zm1.495.025c-.05.05-.1.025-.1-.025V2.976a.067.067 0 0 1 .02-.056a.066.066 0 0 1 .055-.02c3.337.226 5.48 1.629 5.48 3.657a3.411 3.411 0 0 1-.872 2.278c1.095.3 1.519 1.127 1.519 2.229c.002 1.954-1.418 5.185-6.1 9.542Z"
+          />
+        </svg>
+
+        <svg
+          id="netflixLogo"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path
+            id="netflixPath"
+            fill="#E50914"
+            d="M5.94 1v10.994c0 6.045.006 10.996.014 11.004c.01.01.382-.029.834-.078a73.701 73.701 0 0 1 1.383-.139a80.63 80.628 0 0 1 2.06-.133c.05 0 .052-.246.058-4.655l.01-4.645l.34.964c1.406 3.979 1.77 5.004 2.166 6.117v.002l.206.581l.575 1.624c.003.003.292.02.642.038a48.332 48.33 0 0 1 3.37.29c.12.014.227.024.307.03c.038.002.044 0 .067 0c.023 0 .062.003.067 0h.006c.003 0 .003-.967.005-1.382l.002-.435c.007-1.783.01-4.836.007-9.181l-.01-10.979h-4.311L13.73 5.88l-.01 4.859v.003l-.398-1.13V9.61v.002l-2.04-5.765v-.013l-.177-.501c-.422-1.195-.781-2.205-.795-2.251L10.28 1H8.107Z"
+          />
+        </svg>
+      </div>
+
+      <div class="info-text">Click to play morph animation</div>
+    </div>
+
+    <div class="footer">
+      <p>Made with mind by <a href="https://shivamkatare.vercel.app" target="_blank" rel="noopener noreferrer">Shivam Katare</a></p>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
