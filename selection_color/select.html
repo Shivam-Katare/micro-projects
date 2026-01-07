@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selection Color Demo</title>
+  <link rel="stylesheet" href="select.css" />
+</head>
+<body>
+
+  <h1>Text Selection Color Demo</h1>
+  <p>Select the text below and change the selection color.</p>
+
+  <div class="controls">
+    <button id="toggle">Enable Custom Selection</button>
+
+    <div class="color-picker hidden" id="colorPicker">
+      <span class="color active" data-color="#0ea5e9" style="--c:#0ea5e9"></span>
+      <span class="color" data-color="#22c55e" style="--c:#22c55e"></span>
+      <span class="color" data-color="#ef4444" style="--c:#ef4444"></span>
+      <span class="color" data-color="#a855f7" style="--c:#a855f7"></span>
+      <span class="color" data-color="#f59e0b" style="--c:#f59e0b"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <p>
+      This paragraph exists only for demonstration. Select this text to see
+      how the highlight color changes when you pick a different option.
+    </p>
+
+    <p>
+      The styling is handled by CSS. JavaScript is only controlling state and
+      switching CSS variables.
+    </p>
+  </div>
+
+  <script src="select.js"></script>
+</body>
+</html>
